@@ -5,11 +5,11 @@
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
+   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* CRITICAL CHANGE: ENABLE SMOOTH SCROLLING */
+        
         html {
             scroll-behavior: smooth;
         }
@@ -53,7 +53,7 @@
         /* Tag styles */
         .tag-blue { background-color: #50A4C81A; color: var(--color-accent-blue); }
 
-        /* --- Intro/Transition Styles (Retained for functionality) --- */
+       
         #intro-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center;
@@ -113,11 +113,11 @@
             width: 280px; height: 280px; border-radius: 50%; background-color: var(--color-bg-card); 
             position: relative; box-shadow: 0 0 25px rgba(80, 164, 200, 0.5), 0 0 10px rgba(255, 255, 255, 0.2); 
             border: 2px solid var(--color-accent-blue);
-            /* Ensure clip works for the image */
+           
             overflow: hidden; 
         }
         
-        /* CRITICAL: Ensures the image covers the circle and the focus (face) is visible */
+        
         .profile-img {
             width: 100%;
             height: 100%;
@@ -127,13 +127,12 @@
             object-position: 50% 20%; 
         }
         
-        /* --- NEW: CSS rule to ensure the image appears above any potential M.S.S. text --- */
+        
         .profile-img[src="passimage.jpg"] {
             display: block !important; 
             z-index: 5; 
         }
-        /* --------------------------------------------------------------------------------- */
-
+       
         .project-header-blue {
             background-image: linear-gradient(to right, #50A4C8, #4078A0);
             padding: 1.5rem; font-size: 1.5rem; font-weight: 600; color: var(--color-text-white);
@@ -144,7 +143,7 @@
         .service-card { cursor: pointer; transition: all 0.3s ease; }
         .active-service { border-color: var(--color-accent-blue) !important; box-shadow: 0 0 15px rgba(80, 164, 200, 0.8), 0 0 5px rgba(80, 164, 200, 0.4) !important; transform: scale(1.02) !important; background-color: #142835 !important; }
         
-        /* achievement-card is now a div. Added flex for button placement. */
+       
         .achievement-card { 
             background-color: var(--color-bg-card); 
             border: 1px solid var(--color-border-dark); 
@@ -472,13 +471,13 @@
                     <!-- Card 3: Microsoft Azure AI Fundamentals (AI-900) -->
                     <div class="achievement-card p-6 rounded-xl">
                         <div class="icon-container rounded-full">
-                            <!-- Updated icon to represent AI/Brain -->
+                            
                             <i class="fas fa-brain text-2xl" style="color: var(--color-icon-blue);"></i>
                         </div>
                         <h4 class="text-xl font-semibold text-white mb-2">Microsoft Azure AI Fundamentals (AI-900)</h4>
-                        <!-- Updated description -->
+                        
                         <p class="text-text-light text-sm mb-4">Certified understanding of core AI, Machine Learning, and workload concepts on Azure.</p>
-                        <!-- Updated tag -->
+                        
                         <span class="px-4 py-1 rounded-full achievement-tag mb-4">Cloud AI</span>
                         <a href="https://drive.google.com/file/d/1D-PG4e0iFx0GLwipC643hzuDy501kfPb/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-standard">
                             <i class="fas fa-external-link-alt mr-2"></i> View Certificate
@@ -488,7 +487,7 @@
                     <!-- Card 4: Adobe Hackathon Participation -->
                     <div class="achievement-card p-6 rounded-xl lg:col-start-1 lg:col-end-2 sm:col-span-1">
                         <div class="icon-container rounded-full">
-                            <!-- Changed icon to represent a hackathon/competition -->
+                            
                             <i class="fas fa-laptop-code text-2xl" style="color: var(--color-icon-blue);"></i>
                         </div>
                         <h4 class="text-xl font-semibold text-white mb-2">Adobe Hackathon Participation</h4>
@@ -520,7 +519,7 @@
                         </span>
 
                         <div class="icon-container rounded-full">
-                            <!-- Icon change to emphasize development -->
+                           
                             <i class="fas fa-laptop-code text-2xl" style="color: #fcd34d;"></i>
                         </div>
                         <h4 class="text-xl font-bold text-amber-300 mb-2">Junior Developer Internship</h4>
@@ -600,7 +599,7 @@
                 </div>
             </section>
             
-            <!-- Services Section (Retained) -->
+            <!-- Services Section -->
             <section id="services" class="py-16">
                 <p class="section-heading">My Services</p>
                 <p class="section-subheading">I offer a range of services to help bring your digital ideas to life</p>
@@ -648,7 +647,7 @@
                 <p class="section-subheading">Let's discuss your project ideas or potential collaboration opportunities</p>
 
                 <div class="grid lg:grid-cols-2 gap-12 bg-card p-8 rounded-xl border border-dark">
-                    <!-- Left Column: Let's Connect -->
+                    
                     <div>
                         <h4 class="text-2xl font-bold text-white mb-4">Let's Connect</h4>
                         <p class="text-text-light mb-8">
@@ -702,24 +701,24 @@
                     <div>
                         <h4 class="text-2xl font-bold text-white mb-4">Send Message</h4>
                         
-                        <!-- Status message box (initially hidden) -->
+                        
                         <div id="message-status" class="opacity-0"></div>
 
-                        <!-- The Formspree URL is correctly set to use your unique hash ID. -->
+                      
                         <form id="contactForm" class="space-y-4" action="https://formspree.io/f/mgvnnopl" method="POST">
                             
-                            <!-- Hidden field to give the email a clear subject line -->
+                            
                             <input type="hidden" name="_subject" value="New Portfolio Message from Mannem Sumana Sri">
                             
                             <div class="grid sm:grid-cols-2 gap-4">
-                                <!-- Name Field -->
+                                
                                 <input type="text" name="name" placeholder="Your Name *" class="bg-[#30363D80] text-white p-3 rounded-lg border border-dark focus:border-accent-blue focus:ring-1 focus:ring-accent-blue" required>
-                                <!-- Email Field -->
+                                
                                 <input type="email" name="_replyto" placeholder="Your Email *" class="w-full bg-[#30363D80] text-white p-3 rounded-lg border border-dark focus:border-accent-blue focus:ring-1 focus:ring-accent-blue" required>
                             </div>
-                            <!-- Subject Field -->
+                            
                             <input type="text" name="subject" placeholder="Subject (Project Discussion, Inquiry, etc.)" class="w-full bg-[#30363D80] text-white p-3 rounded-lg border border-dark focus:border-accent-blue focus:ring-1 focus:ring-accent-blue">
-                            <!-- Message Field -->
+                           
                             <textarea name="message" placeholder="Tell me about your project or idea... *" rows="5" class="w-full bg-[#30363D80] text-white p-3 rounded-lg border border-dark focus:border-accent-blue focus:ring-1 focus:ring-accent-blue" required></textarea>
                             
                             <!-- Submit Button -->
@@ -772,7 +771,7 @@
                         universe.classList.add('fade-out'); 
                         welcomeText.classList.add('fade-out'); 
                         
-                        // Finally, show the main portfolio content
+                        
                         setTimeout(() => {
                             universe.style.display = 'none';
                             welcomeText.style.display = 'none';
@@ -801,7 +800,7 @@
             const transitionDuration = 500; 
 
             function updateTitle() {
-                // Ensure text content is correct
+               
                 rotationElement.textContent = jobTitles[currentTitleIndex];
             }
 
@@ -908,13 +907,13 @@
                 }
 
                 const displayStatus = (message, isSuccess) => {
-                    // Use innerHTML to support bold text
+                
                     status.innerHTML = message; 
                     status.className = isSuccess 
                         ? 'p-3 rounded-lg text-center bg-green-500/10 text-green-400 mb-4 transition duration-300' 
                         : 'p-3 rounded-lg text-center bg-red-500/10 text-red-400 mb-4 transition duration-300';
                     status.style.display = 'block';
-                    // Force reflow to ensure transition runs
+                    
                     void status.offsetWidth; 
                     status.style.opacity = 1;
 
@@ -961,10 +960,10 @@
                             if (response.status === 400 && result.error === "unverified_email") {
                                 errorMessage = "Formspree requires **confirmation**! Please ensure the email endpoint is verified, or that you are using a unique hash ID.";
                             } else if (response.status === 400 && result.errors && result.errors.length > 0) {
-                                // Validation errors (missing required fields)
+                                
                                 errorMessage = `Validation failed! Missing or invalid data for: **${result.errors.map(error => error.field).join(', ')}**. Please check all required fields.`;
                             } else {
-                                // Generic error fallback
+                                
                                 errorMessage += `An unknown error occurred (Status ${response.status}). If this continues, please contact me directly at mannemsri@gmail.com.`;
                             }
                             
@@ -985,3 +984,4 @@
     </script>
 </body>
 </html>
+

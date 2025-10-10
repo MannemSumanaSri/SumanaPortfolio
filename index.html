@@ -1,0 +1,987 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mannem Sumana Sri | Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* CRITICAL CHANGE: ENABLE SMOOTH SCROLLING */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- Custom Color Definitions --- */
+        :root {
+            /* Main Theme Colors */
+            --color-bg-primary: #0D1117;     
+            --color-bg-card: #161B22;        
+            --color-text-light: #C9D1D9;     
+            --color-text-white: #FFFFFF;     
+            
+            /* Accent Colors (Blue/Cyan) */
+            --color-accent-blue: #50A4C8;    /* Main Blue Accent */
+            --color-border-dark: #30363D;    
+            
+            /* Colors for Achievement Card icons */
+            --color-card-blue: #16242e;      
+            --color-icon-blue: #53d2d0;      
+        }
+
+        /* General Setup and Inter Font */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-bg-primary); 
+            color: var(--color-text-light);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden; 
+            transition: background-color 0.5s ease;
+        }
+
+        /* Utility classes using custom colors */
+        .bg-card { background-color: var(--color-bg-card); }
+        .text-accent-blue { color: var(--color-accent-blue); }
+        .border-accent-blue { border-color: var(--color-accent-blue); }
+        .border-dark { border-color: var(--color-border-dark); }
+        .shadow-glow-blue { box-shadow: 0 0 15px rgba(80, 164, 200, 0.5); }
+        
+        /* Tag styles */
+        .tag-blue { background-color: #50A4C81A; color: var(--color-accent-blue); }
+
+        /* --- Intro/Transition Styles (Retained for functionality) --- */
+        #intro-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; cursor: pointer;
+            transition: opacity 1s ease-in-out; z-index: 100; 
+            background-color: #06101c; 
+        }
+        #parallel-universe {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 0; height: 0; border-radius: 50%; background: linear-gradient(135deg, #161B22, #0D1117); 
+            opacity: 0; z-index: 90;
+            transition: width 0.7s ease-in-out, height 0.7s ease-in-out, opacity 0.5s ease-out 0.5s;
+        }
+        .expand { width: 300vmax !important; height: 300vmax !important; opacity: 1 !important; }
+        #welcome-text {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: #f0f0ff; font-size: 2.5rem; font-weight: 900; opacity: 0;
+            z-index: 110; text-shadow: 0 0 15px rgba(80, 164, 200, 0.9); 
+            transition: opacity 0.5s ease-in-out; display: none;
+        }
+        .fade-out { opacity: 0 !important; pointer-events: none; }
+        .ring-container { position: relative; width: 160px; height: 160px; margin-bottom: 30px; }
+        .ring {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            border-radius: 50%; border: 3px solid transparent; animation: rotate 4s linear infinite;
+            opacity: 0.9; border-color: rgba(80, 164, 200, 0.15); border-right-color: #50A4C8; 
+            border-left-color: #53D2D0; box-shadow: 0 0 15px rgba(80, 164, 200, 0.5), inset 0 0 10px rgba(80, 164, 200, 0.3);
+        }
+        .ring-1 { width: 100px; height: 100px; animation-delay: 0s; }
+        .ring-2 { width: 120px; height: 120px; animation-delay: -1s; }
+        .ring-3 { width: 140px; height: 140px; animation-delay: -2s; }
+        .ring-4 { width: 160px; height: 160px; animation-delay: -3s; }
+        .center-icon {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 30px; height: 30px; border-radius: 50%; background-color: var(--color-accent-blue); 
+            box-shadow: 0 0 20px var(--color-accent-blue), 0 0 5px #f0f0ff; 
+        }
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        /* --- Main Content Styles & Features --- */
+        .fixed-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 50; background-color: #161b2299; backdrop-filter: blur(8px); }
+        .nav-active { color: var(--color-accent-blue) !important; font-weight: 600; transform: scale(1.05); }
+        #portfolio-content { z-index: 10; max-width: 1200px; width: 90%; padding-top: 8rem; margin: 0 auto; animation: fadeInContent 1s ease-out forwards; }
+        @keyframes fadeInContent { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        
+        /* Modified for clean text display */
+        .slide-in { opacity: 1; transform: translateY(0); transition: opacity 500ms ease-in-out, transform 500ms ease-in-out; }
+        .slide-out { opacity: 0; transform: translateY(-5px); transition: opacity 500ms ease-in-out, transform 500ms ease-in-out; }
+
+        .section-heading { font-size: 2.25rem; font-weight: 700; color: var(--color-text-white); text-align: center; margin-bottom: 0.5rem; }
+        .section-subheading { font-size: 1rem; color: var(--color-text-light); text-align: center; margin-bottom: 3rem; }
+
+        .hero-circle {
+            width: 280px; height: 280px; border-radius: 50%; background-color: var(--color-bg-card); 
+            position: relative; box-shadow: 0 0 25px rgba(80, 164, 200, 0.5), 0 0 10px rgba(255, 255, 255, 0.2); 
+            border: 2px solid var(--color-accent-blue);
+            /* Ensure clip works for the image */
+            overflow: hidden; 
+        }
+        
+        /* CRITICAL: Ensures the image covers the circle and the focus (face) is visible */
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            border-radius: 50%;
+            /* Vertical adjustment for face centering - adjusted to 20% for slightly better centering */
+            object-position: 50% 20%; 
+        }
+        
+        /* --- NEW: CSS rule to ensure the image appears above any potential M.S.S. text --- */
+        .profile-img[src="passimage.jpg"] {
+            display: block !important; 
+            z-index: 5; 
+        }
+        /* --------------------------------------------------------------------------------- */
+
+        .project-header-blue {
+            background-image: linear-gradient(to right, #50A4C8, #4078A0);
+            padding: 1.5rem; font-size: 1.5rem; font-weight: 600; color: var(--color-text-white);
+        }
+        .project-card { background-color: var(--color-bg-card); border: 1px solid var(--color-border-dark); border-radius: 0.75rem; overflow: hidden; transition: all 0.3s ease; }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+        .project-content { padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; min-height: 250px; }
+        .service-card { cursor: pointer; transition: all 0.3s ease; }
+        .active-service { border-color: var(--color-accent-blue) !important; box-shadow: 0 0 15px rgba(80, 164, 200, 0.8), 0 0 5px rgba(80, 164, 200, 0.4) !important; transform: scale(1.02) !important; background-color: #142835 !important; }
+        
+        /* achievement-card is now a div. Added flex for button placement. */
+        .achievement-card { 
+            background-color: var(--color-bg-card); 
+            border: 1px solid var(--color-border-dark); 
+            transition: all 0.3s ease; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-start; 
+            position: relative; 
+            padding-bottom: 5.5rem !important; /* Make room for the button */
+        }
+        .achievement-card:hover { 
+            border-color: var(--color-accent-blue); 
+            transform: translateY(-2px); 
+            box-shadow: 0 0 10px rgba(80, 164, 200, 0.4);
+        }
+        
+        .icon-container { background-color: var(--color-card-blue); padding: 1rem; margin-bottom: 1rem; border: 1px solid rgba(80, 164, 200, 0.2); }
+        .achievement-tag { background-color: rgba(80, 164, 200, 0.1); color: var(--color-accent-blue); font-weight: 600; font-size: 0.75rem; border: 1px solid rgba(80, 164, 200, 0.3); }
+
+        /* Custom style for the Internship Card to highlight it (Amber/Gold Theme) */
+        .internship-highlight {
+            border-color: #fbbf24 !important; /* amber-400 equivalent */
+            background-color: #1f2b3b !important; /* Slightly lighter/different dark shade */
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5); /* Amber glow */
+        }
+        .internship-highlight:hover {
+            transform: scale(1.01) translateY(-3px) !important;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.7);
+        }
+        .internship-highlight .icon-container {
+            background-color: #fcd34d1a !important; 
+            border-color: #fcd34d33 !important;
+        }
+        .internship-highlight .icon-container i {
+            color: #fcd34d !important; /* amber-400 */
+        }
+        .internship-highlight .achievement-tag {
+            background-color: #fcd34d1a !important; 
+            color: #fcd34d !important; 
+            border-color: #fcd34d66 !important;
+            font-weight: 600;
+        }
+        
+        /* Button Styling for Certificates */
+        .cert-btn {
+            position: absolute;
+            bottom: 1rem; /* Positioning at the bottom */
+            left: 1.5rem; /* Matches card padding */
+            right: 1.5rem;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        /* Standard Button (Border only) */
+        .cert-btn-standard {
+            border: 1px solid var(--color-accent-blue);
+            color: var(--color-accent-blue);
+            background-color: transparent;
+        }
+        .cert-btn-standard:hover {
+            background-color: #50A4C81A;
+            color: var(--color-text-white);
+        }
+
+        /* Highlighted Button (Solid fill) */
+        .cert-btn-highlight {
+            background-color: #fbbf24; /* amber-400 */
+            color: #111827; /* dark text for contrast */
+            box-shadow: 0 4px 10px rgba(251, 191, 36, 0.4);
+        }
+        .cert-btn-highlight:hover {
+            background-color: #fcd34d; /* slightly lighter hover */
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="bg-[#0D1117]">
+
+    <!-- 1. Initial Screen: The Setup -->
+    <div id="intro-screen">
+        <div class="ring-container">
+            <div class="ring ring-4"></div>
+            <div class="ring ring-3"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-1"></div>
+            <div class="center-icon"></div>
+        </div>
+        <h1 class="main-title text-5xl font-black" style="color: #f0f0ff; text-shadow: 0 0 20px rgba(80, 164, 200, 0.9); transition: none;">Welcome to my world of code!</h1>
+        <p class="subtitle text-gray-400">Click anywhere to initiate Portfolio access.</p>
+        <p style="font-size: 0.9em; margin-top: 20px; opacity: 0.5; z-index: 10;" class="text-gray-500">
+            &clubs; Design.Develop.Deliver &plus;
+        </p>
+    </div>
+
+    <!-- 2. Transition Element: The Expanding Circle -->
+    <div id="parallel-universe"></div>
+
+    <!-- 3. Welcome Text (Appears mid-transition) -->
+    <div id="welcome-text">ACCESS GRANTED</div>
+
+    <!-- 4. Main Portfolio Content (Initially hidden) -->
+    <div id="portfolio-main-wrapper" class="hidden">
+        
+        <!-- Fixed Header/Navigation -->
+        <header class="fixed-header px-4 md:px-8">
+            <div class="max-w-7xl mx-auto flex justify-between items-center py-5 border-b border-dark">
+                <h1 class="text-2xl font-black text-white hover:text-accent-blue transition cursor-pointer">SUMANA SRI</h1>
+                <nav class="space-x-4 text-sm hidden sm:flex font-medium items-center">
+                    <a href="#hero" class="text-white hover:text-accent-blue transition nav-item">Home</a>
+                    <a href="#about" class="text-text-light hover:text-accent-blue transition nav-item">About</a>
+                    <a href="#skills" class="text-text-light hover:text-accent-blue transition nav-item">Skills</a>
+                    <a href="#projects" class="text-text-light hover:text-accent-blue transition nav-item">Projects</a>
+                    <a href="#services" class="text-text-light hover:text-accent-blue transition nav-item">Services</a>
+                    <a href="#contact" class="text-text-light hover:text-accent-blue transition nav-item">Contact</a>
+                    
+                    <a 
+                        href="https://drive.google.com/file/d/1hgFGRK21pNVlmElbTPxkNExmVL6JXXya/view?usp=drive_link" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="border border-accent-blue text-accent-blue px-3 py-1 rounded-md hover:bg-[#50A4C81A] transition text-sm">
+                        Resume
+                    </a>
+                </nav>
+                <button class="sm:hidden text-text-light hover:text-accent-blue">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <div id="portfolio-content">
+
+            <!-- Hero Section -->
+            <section id="hero" class="pt-10 pb-20 md:py-24">
+                <div class="md:grid md:grid-cols-12 items-center gap-10">
+                    <div class="col-span-7 text-left">
+                        
+                        <!-- Name and Title -->
+                        <h2 class="text-2xl font-medium mb-0 mt-[-1.5rem] text-text-light">
+                            Hi, I'm 
+                            <span class="text-3xl md:text-4xl font-extrabold tracking-wider text-accent-blue whitespace-nowrap">
+                                MANNEM SUMANA
+                                <span class="text-accent-blue inline transform hover:scale-105 transition duration-300 ml-1">
+                                    SRI
+                                </span>
+                            </span>
+                        </h2>
+                        
+                        <!-- Rotating Title: Full Stack Developer / Open Source Contributor -->
+                        <div class="text-text-light font-bold mb-4 leading-normal h-10 flex items-center"> 
+                            <div id="rotating-title-container" class="flex items-center">
+                                <span class="mr-2 text-xl md:text-2xl text-white opacity-80 font-normal">I am a</span>
+                                <div id="rotating-title-content" class="text-xl md:text-2xl text-accent-blue font-bold uppercase transition duration-500 ease-in-out"></div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-text-light max-w-xl mb-8 leading-relaxed">
+                            B.Tech Computer Science student passionate about building intelligent solutions and beautiful frontend experiences. Currently exploring the intersection of AI and web development.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#contact" class="bg-accent-blue hover:bg-[#50A4C8CC] px-6 py-2.5 text-base font-semibold rounded-lg transition duration-300 shadow-glow-blue text-white transform hover:scale-[1.02] inline-flex items-center">
+                                <i class="fas fa-comment-dots mr-2"></i> Let's Talk
+                            </a>
+                            <a 
+                                href="https://drive.google.com/file/d/1hgFGRK21pNVlmElbTPxkNExmVL6JXXya/view?usp=drive_link" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                class="bg-transparent border border-dark text-text-light hover:border-accent-blue hover:text-accent-blue px-6 py-2.5 text-base font-semibold rounded-lg transition duration-300 transform hover:scale-[1.02] inline-flex items-center">
+                                <i class="fas fa-file-alt mr-2"></i> View Resume
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Hero Image with Circles -->
+                    <div class="col-span-5 hidden md:flex justify-center items-center relative mt-10 md:mt-0">
+                        <div class="hero-circle flex justify-center items-center">
+        
+                            <img 
+                                id="profileImage"
+                                src="./passimage.png" 
+                                alt="Mannem Sumana Sri Profile Photo" 
+                                class="profile-img"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section (Retained) -->
+            <section id="about" class="py-16">
+                <p class="section-heading">About Me</p>
+                <p class="section-subheading">Get to know more about my journey, education, and passion for technology</p>
+                
+                <div class="bg-card p-8 rounded-xl border border-dark">
+                    <div class="grid lg:grid-cols-2 gap-8 lg:gap-16">
+                        <!-- Left Column: Biography -->
+                        <div class="space-y-4 text-text-light">
+                            <p class="text-lg">
+                                I'm a B.Tech computer science student passionate about building intelligent solutions and beautiful front-end experiences. Currently exploring the intersection of AI and web development.
+                            </p>
+                            <p class="text-lg font-bold text-accent-blue">
+                                Currently contributing to open source projects.
+                            </p>
+                            <p class="text-lg">
+                                My journey in technology has been driven by curiosity and a desire to solve real-world problems through code. I enjoy working on projects that combine machine learning with practical applications, creating solutions that make a difference.
+                            </p>
+                        </div>
+                        
+                        <!-- Right Column: Key Stats -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <p class="text-xl font-bold text-white"><i class="fas fa-graduation-cap text-accent-blue mr-2"></i> Graduation</p>
+                                <p class="text-text-light text-lg">2027</p>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-xl font-bold text-white"><i class="fas fa-globe text-accent-blue mr-2"></i> Languages</p>
+                                <p class="text-text-light text-lg">English, Telugu, Hindi</p>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-xl font-bold text-white"><i class="fas fa-map-marker-alt text-accent-blue mr-2"></i> Location</p>
+                                <p class="text-text-light text-lg">India</p>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-dark rounded-lg text-center" style="background-color: #30363D80;">
+                                    <p class="text-3xl font-bold text-accent-blue">2+</p>
+                                    <p class="text-sm text-text-light">Internships</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 col-span-2">
+                                <div class="p-3 rounded-lg text-center" style="background-color: #30363D80;">
+                                    <p class="text-3xl font-bold text-accent-blue">5+</p>
+                                    <p class="text-sm text-text-light">Certifications</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section (Retained) -->
+            <section id="skills" class="py-16">
+                <p class="section-heading">Skills & Technologies</p>
+                <p class="section-subheading">Here are the technologies and tools I work with to bring ideas to life</p>
+
+                <!-- Skill Cards Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <!-- Programming -->
+                    <div class="bg-card p-6 rounded-xl border border-dark hover:border-accent-blue transition">
+                        <p class="text-xl font-bold mb-3 text-white"><i class="fas fa-code text-accent-blue mr-2"></i> Programming</p>
+                        <ul class="list-none space-y-2 text-text-light pl-0">
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> Python</li>
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> HTML</li>
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> CSS</li>
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> JavaScript</li>
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> C++</li>
+                        </ul>
+                    </div>
+                    <!-- Libraries -->
+                    <div class="bg-card p-6 rounded-xl border border-dark hover:border-accent-blue transition">
+                        <p class="text-xl font-bold mb-3 text-white"><i class="fas fa-book-open text-accent-blue mr-2"></i> Libraries</p>
+                        <ul class="list-none space-y-2 text-text-light pl-0">
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> NumPy</li>
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> Pandas</li>
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> React</li>
+                        </ul>
+                    </div>
+                    <!-- Tools -->
+                    <div class="bg-card p-6 rounded-xl border border-dark hover:border-accent-blue transition">
+                        <p class="text-xl font-bold mb-3 text-white"><i class="fas fa-tools text-accent-blue mr-2"></i> Tools</p>
+                        <ul class="list-none space-y-2 text-text-light pl-0">
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> Git</li>
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> VS Code</li>
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> Canva</li>
+                        </ul>
+                    </div>
+                    <!-- Domains -->
+                    <div class="bg-card p-6 rounded-xl border border-dark hover:border-accent-blue transition">
+                        <p class="text-xl font-bold mb-3 text-white"><i class="fas fa-cubes text-accent-blue mr-2"></i> Domains</p>
+                        <ul class="list-none space-y-2 text-text-light pl-0">
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> Frontend Development</li>
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> Machine Learning (NLP)</li>
+                            <li><i class="fas fa-circle text-[8px] text-accent-blue mr-2"></i> Full-Stack (MERN)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Certificates and Achievements Section -->
+                <p class="section-heading mt-16 mb-2">Certifications & Achievements</p>
+                <p class="section-subheading">Recognition of my continuous learning and dedication to excellence</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    
+                    <!-- Card 1: GFG Streak -->
+                    <div class="achievement-card p-6 rounded-xl">
+                        <div class="icon-container rounded-full">
+                            <i class="fas fa-bullseye text-2xl" style="color: var(--color-icon-blue);"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">GFG 160-day streak</h4>
+                        <p class="text-text-light text-sm mb-4">Consistent problem solving on GeeksforGeeks platform</p>
+                        <span class="px-4 py-1 rounded-full achievement-tag mb-4">Consistency</span>
+                        <a href="https://drive.google.com/file/d/1TL6hgjR-JFsJKMfG2o6W6HVmfEnT36pK/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-standard">
+                            <i class="fas fa-external-link-alt mr-2"></i> View Certificate
+                        </a>
+                    </div>
+
+                    <!-- Card 2: Pull Shark -->
+                    <div class="achievement-card p-6 rounded-xl">
+                        <div class="icon-container rounded-full">
+                            <i class="fas fa-code-branch text-2xl" style="color: var(--color-icon-blue);"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">Pull Shark Badge</h4>
+                        <p class="text-text-light text-sm mb-4">Awarded for merging 2+ Pull Requests on GitHub.</p>
+                        <span class="px-4 py-1 rounded-full achievement-tag mb-4">Open Source</span>
+                         <a href="https://github.com/MannemSumanaSri?tab=achievements" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-standard">
+                            <i class="fas fa-external-link-alt mr-2"></i> View Badge
+                        </a>
+                    </div>
+
+                    <!-- Card 3: Microsoft Azure AI Fundamentals (AI-900) -->
+                    <div class="achievement-card p-6 rounded-xl">
+                        <div class="icon-container rounded-full">
+                            <!-- Updated icon to represent AI/Brain -->
+                            <i class="fas fa-brain text-2xl" style="color: var(--color-icon-blue);"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">Microsoft Azure AI Fundamentals (AI-900)</h4>
+                        <!-- Updated description -->
+                        <p class="text-text-light text-sm mb-4">Certified understanding of core AI, Machine Learning, and workload concepts on Azure.</p>
+                        <!-- Updated tag -->
+                        <span class="px-4 py-1 rounded-full achievement-tag mb-4">Cloud AI</span>
+                        <a href="https://drive.google.com/file/d/1D-PG4e0iFx0GLwipC643hzuDy501kfPb/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-standard">
+                            <i class="fas fa-external-link-alt mr-2"></i> View Certificate
+                        </a>
+                    </div>
+
+                    <!-- Card 4: Adobe Hackathon Participation -->
+                    <div class="achievement-card p-6 rounded-xl lg:col-start-1 lg:col-end-2 sm:col-span-1">
+                        <div class="icon-container rounded-full">
+                            <!-- Changed icon to represent a hackathon/competition -->
+                            <i class="fas fa-laptop-code text-2xl" style="color: var(--color-icon-blue);"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">Adobe Hackathon Participation</h4>
+                        <p class="text-text-light text-sm mb-4">Participated in the online MCQ assessment round.</p>
+                        <span class="px-4 py-1 rounded-full achievement-tag mb-4">Hackathon</span>
+                        <a href="https://drive.google.com/file/d/1U18ATBOPH6cCse9QD9GqfKyR1J3AEE89/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-standard">
+                            <i class="fas fa-external-link-alt mr-2"></i> View Certificate
+                        </a>
+                    </div>
+                    
+                    <!-- Card 5: Inter College Project Expo -->
+                    <div class="achievement-card p-6 rounded-xl lg:col-start-2 lg:col-end-3 sm:col-span-1">
+                        <div class="icon-container rounded-full">
+                            <i class="fas fa-medal text-2xl" style="color: var(--color-icon-blue);"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">Inter College Project Expo</h4>
+                        <p class="text-text-light text-sm mb-4">Vishesh 2024 Participation Certificate</p>
+                        <span class="px-4 py-1 rounded-full achievement-tag mb-4">Competition</span>
+                        <a href="https://drive.google.com/file/d/1k2lsqBGMtb7e27Nlwijom5KToN9Ld7t7/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-standard">
+                            <i class="fas fa-external-link-alt mr-2"></i> View Certificate
+                        </a>
+                    </div>
+
+                    <!-- Card 6: Junior Developer Internship (HIGHLIGHTED) -->
+                    <div class="achievement-card p-6 rounded-xl internship-highlight relative">
+                        <!-- Highlight Badge adapted for the dark theme -->
+                        <span class="absolute top-0 right-0 -mt-3 -mr-3 px-3 py-1 text-xs font-black text-gray-900 uppercase bg-amber-400 rounded-full shadow-lg rotate-3 z-10">
+                            KEY INTERNSHIP
+                        </span>
+
+                        <div class="icon-container rounded-full">
+                            <!-- Icon change to emphasize development -->
+                            <i class="fas fa-laptop-code text-2xl" style="color: #fcd34d;"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-amber-300 mb-2">Junior Developer Internship</h4>
+                        <p class="text-text-light text-sm mb-4">Completed 3 months as a Junior Developer, gaining practical experience in application development and team workflow.</p>
+                        <span class="px-4 py-1 rounded-full achievement-tag mb-4">Practical Experience</span>
+                        <a href="https://drive.google.com/file/d/1QIZHaLgtCxW_s4tUHDM0ebWoLuKuuWPt/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-highlight">
+                            <i class="fas fa-external-link-alt mr-2"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Projects Section (Retained) -->
+            <section id="projects" class="py-16">
+                <p class="section-heading">Featured Projects</p>
+                <p class="section-subheading">Some of my recent work showcasing my skills in machine learning and web development</p>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    
+                    <!-- Project 1: Fake Profile Detection -->
+                    <div class="project-card">
+                        <div class="project-header-blue">
+                            Machine Learning
+                        </div>
+                        <!-- Content -->
+                        <div class="project-content">
+                            <div>
+                                <h4 class="project-title">Fake Profile Detection Using ANN</h4>
+                                <p class="project-description">Built a machine learning model using Artificial Neural Networks and NLP to classify fake social media accounts. Developed and trained the model on structured data with high accuracy.</p>
+                                <div class="flex flex-wrap gap-2 text-sm mb-4">
+                                    <span class="px-3 py-1 rounded-full tag-blue">Python</span>
+                                    <span class="px-3 py-1 rounded-full tag-blue">TensorFlow</span>
+                                    <span class="px-3 py-1 rounded-full tag-blue">NLP</span>
+                                    <span class="px-3 py-1 rounded-full tag-blue">Neural Networks</span>
+                                    <span class="px-3 py-1 rounded-full tag-blue">Pandas</span>
+                                </div>
+                            </div>
+                            <!-- Footer Button: GitHub link -->
+                            <a href="https://github.com/MannemSumanaSri/fake-profile-detector-ANN" target="_blank" class="inline-block self-start bg-[#242b35] hover:bg-[#30363D] border border-dark text-white px-5 py-2 text-sm font-semibold rounded-lg transition duration-300">
+                                <i class="fab fa-github mr-2"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Offline Payments Website -->
+                    <div class="project-card">
+                        <div class="project-header-blue">
+                            Web Development
+                        </div>
+                        <!-- Content -->
+                        <div class="project-content">
+                            <div>
+                                <h4 class="project-title">Offline Payments Website</h4>
+                                <p class="project-description">Created an offline-first payment system using web technologies, QR scanning, and local storage. Enabled secure peer-to-peer payments without internet by syncing data later.</p>
+                                <div class="flex flex-wrap gap-2 text-sm mb-4">
+                                    <span class="px-3 py-1 rounded-full tag-blue">HTML</span>
+                                    <span class="px-3 py-1 rounded-full tag-blue">CSS</span>
+                                    <span class="px-3 py-1 rounded-full tag-blue">JavaScript</span>
+                                    <span class="px-3 py-1 rounded-full tag-blue">QR Code</span>
+                                    <span class="px-3 py-1 rounded-full tag-blue">Local Storage</span>
+                                </div>
+                            </div>
+                            <!-- Footer Status -->
+                            <p class="inline-block self-start text-text-light font-semibold opacity-70 text-sm py-2">
+                                Work in Progress
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="https://github.com/MannemSumanaSri" target="_blank" class="inline-block bg-card border border-dark text-white hover:border-accent-blue hover:text-accent-blue px-6 py-3 text-base font-semibold rounded-lg transition duration-300 transform hover:scale-[1.02]">
+                        <i class="fab fa-github mr-2"></i> View All Projects on GitHub
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Services Section (Retained) -->
+            <section id="services" class="py-16">
+                <p class="section-heading">My Services</p>
+                <p class="section-subheading">I offer a range of services to help bring your digital ideas to life</p>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Service 1: Web Development -->
+                    <div class="service-card cursor-pointer bg-card p-6 rounded-xl border border-dark transition duration-300" style="border-bottom: 4px solid var(--color-accent-blue);">
+                        <i class="fas fa-desktop text-5xl text-accent-blue mb-4"></i>
+                        <h4 class="text-2xl font-bold text-white mb-3">Web Development</h4>
+                        <p class="text-text-light mb-4">Responsive websites with modern UI/UX design and clean, maintainable code.</p>
+                        <ul class="list-none space-y-2 text-text-light pl-0 text-sm">
+                            <li><i class="fas fa-check-circle text-accent-blue mr-2"></i> Responsive Design</li>
+                            <li><i class="fas fa-check-circle text-accent-blue mr-2"></i> Modern Frameworks (React)</li>
+                            <li><i class="fas fa-check-circle text-accent-blue mr-2"></i> Performance Optimization</li>
+                        </ul>
+                    </div>
+                    <!-- Service 2: ML Solutions -->
+                    <div class="service-card cursor-pointer bg-card p-6 rounded-xl border border-dark transition duration-300" style="border-bottom: 4px solid var(--color-accent-blue);">
+                        <i class="fas fa-robot text-5xl text-accent-blue mb-4"></i>
+                        <h4 class="text-2xl font-bold text-white mb-3">ML Solutions</h4>
+                        <p class="text-text-light mb-4">Smart ML models for automation and analysis to solve real-world problems.</p>
+                        <ul class="list-none space-y-2 text-text-light pl-0 text-sm">
+                            <li><i class="fas fa-check-circle text-accent-blue mr-2"></i> Data Analysis & Visuals</li>
+                            <li><i class="fas fa-check-circle text-accent-blue mr-2"></i> Predictive Models</li>
+                            <li><i class="fas fa-check-circle text-accent-blue mr-2"></i> Neural Networks & NLP</li>
+                        </ul>
+                    </div>
+                    <!-- Service 3: Python Projects -->
+                    <div class="service-card cursor-pointer bg-card p-6 rounded-xl border border-dark transition duration-300" style="border-bottom: 4px solid var(--color-accent-blue);">
+                        <i class="fas fa-flask text-5xl text-accent-blue mb-4"></i>
+                        <h4 class="text-2xl font-bold text-white mb-3">Python Projects</h4>
+                        <p class="text-text-light mb-4">Powerful Python solutions for modern applications and data handling tasks.</p>
+                        <ul class="list-none space-y-2 text-text-light pl-0 text-sm">
+                            <li><i class="fas fa-check-circle text-accent-blue mr-2"></i> Clean, Efficient Code</li>
+                            <li><i class="fas fa-check-circle text-accent-blue mr-2"></i> Use of Libraries (Pandas, Numpy)</li>
+                            <li><i class="fas fa-check-circle text-accent-blue mr-2"></i> Debugging and Logic Optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Contact Section (Retained) -->
+            <section id="contact" class="py-16">
+                <p class="section-heading">Get In Touch</p>
+                <p class="section-subheading">Let's discuss your project ideas or potential collaboration opportunities</p>
+
+                <div class="grid lg:grid-cols-2 gap-12 bg-card p-8 rounded-xl border border-dark">
+                    <!-- Left Column: Let's Connect -->
+                    <div>
+                        <h4 class="text-2xl font-bold text-white mb-4">Let's Connect</h4>
+                        <p class="text-text-light mb-8">
+                            I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology and innovation.
+                        </p>
+                        
+                        <div class="space-y-6">
+                            <!-- Email -->
+                            <div class="flex items-center space-x-4">
+                                <i class="fas fa-envelope text-3xl text-accent-blue"></i>
+                                <div>
+                                    <p class="text-lg font-semibold text-white">Email</p>
+                                    <a href="mailto:mannemsumanasri@gmail.com" class="text-text-light hover:text-accent-blue transition">mannemsumanasri@gmail.com</a>
+                                </div>
+                            </div>
+                            <!-- Phone -->
+                            <div class="flex items-center space-x-4">
+                                <i class="fas fa-phone-alt text-3xl text-accent-blue"></i>
+                                <div>
+                                    <p class="text-lg font-semibold text-white">Phone</p>
+                                    <a href="tel:+916281148226" class="text-text-light hover:text-accent-blue transition">+91-6281148226</a>
+                                </div>
+                            </div>
+                            <!-- LinkedIn -->
+                            <div class="flex items-center space-x-4">
+                                <i class="fab fa-linkedin text-3xl text-accent-blue"></i>
+                                <div>
+                                    <p class="text-lg font-semibold text-white">LinkedIn</p>
+                                    <a href="https://www.linkedin.com/in/sumana-sri" target="_blank" class="text-text-light hover:text-accent-blue transition">www.linkedin.com/in/sumana-sri</a>
+                                </div>
+                            </div>
+                            <!-- GitHub -->
+                            <div class="flex items-center space-x-4">
+                                <i class="fab fa-github text-3xl text-accent-blue"></i>
+                                <div>
+                                    <p class="text-lg font-semibold text-white">GitHub</p>
+                                    <a href="https://github.com/MannemSumanaSri" target="_blank" class="text-text-light hover:text-accent-blue transition">MannemSumanaSri</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a 
+                            href="https://drive.google.com/file/d/1hgFGRK21pNVlmElbTPxkNExmVL6JXXya/view?usp=drive_link" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            class="bg-transparent border border-accent-blue text-accent-blue hover:bg-[#50A4C81A] hover:text-white px-6 py-2.5 text-base font-semibold rounded-lg transition duration-300 mt-8 inline-flex items-center">
+                            <i class="fas fa-file-alt mr-2"></i> View Resume
+                        </a>
+                    </div>
+
+                    <!-- Right Column: Send Message Form -->
+                    <div>
+                        <h4 class="text-2xl font-bold text-white mb-4">Send Message</h4>
+                        
+                        <!-- Status message box (initially hidden) -->
+                        <div id="message-status" class="opacity-0"></div>
+
+                        <!-- The Formspree URL is correctly set to use your unique hash ID. -->
+                        <form id="contactForm" class="space-y-4" action="https://formspree.io/f/mgvnnopl" method="POST">
+                            
+                            <!-- Hidden field to give the email a clear subject line -->
+                            <input type="hidden" name="_subject" value="New Portfolio Message from Mannem Sumana Sri">
+                            
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <!-- Name Field -->
+                                <input type="text" name="name" placeholder="Your Name *" class="bg-[#30363D80] text-white p-3 rounded-lg border border-dark focus:border-accent-blue focus:ring-1 focus:ring-accent-blue" required>
+                                <!-- Email Field -->
+                                <input type="email" name="_replyto" placeholder="Your Email *" class="w-full bg-[#30363D80] text-white p-3 rounded-lg border border-dark focus:border-accent-blue focus:ring-1 focus:ring-accent-blue" required>
+                            </div>
+                            <!-- Subject Field -->
+                            <input type="text" name="subject" placeholder="Subject (Project Discussion, Inquiry, etc.)" class="w-full bg-[#30363D80] text-white p-3 rounded-lg border border-dark focus:border-accent-blue focus:ring-1 focus:ring-accent-blue">
+                            <!-- Message Field -->
+                            <textarea name="message" placeholder="Tell me about your project or idea... *" rows="5" class="w-full bg-[#30363D80] text-white p-3 rounded-lg border border-dark focus:border-accent-blue focus:ring-1 focus:ring-accent-blue" required></textarea>
+                            
+                            <!-- Submit Button -->
+                            <button id="submit-button" type="submit" class="w-full bg-accent-blue hover:bg-[#50A4C8CC] text-white px-6 py-3 text-base font-semibold rounded-lg transition duration-300 shadow-glow-blue transform hover:scale-[1.005]">
+                                <i class="fas fa-paper-plane mr-2"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer (Retained) -->
+            <footer class="py-10 text-center text-text-light border-t border-dark mt-16 opacity-50">
+                <p>&copy; <span id="current-year-footer"></span> Mannem Sumana Sri. Built with Precision and Vision.</p>
+            </footer>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const introScreen = document.getElementById('intro-screen');
+            const universe = document.getElementById('parallel-universe');
+            const welcomeText = document.getElementById('welcome-text');
+            const portfolioMainWrapper = document.getElementById('portfolio-main-wrapper');
+            const currentYearFooter = document.getElementById('current-year-footer');
+
+            currentYearFooter.textContent = new Date().getFullYear();
+
+            // Function to handle the transition
+            function enterParallelUniverse() {
+                introScreen.removeEventListener('click', enterParallelUniverse);
+
+                // Step 1: Fade out the initial content (1 second)
+                introScreen.classList.add('fade-out');
+
+                // Step 2: Start the circle expansion (500ms delay)
+                setTimeout(() => {
+                    universe.classList.add('expand');
+                    welcomeText.style.display = 'block'; 
+                }, 500);
+
+                // Step 3: Show ACCESS GRANTED text (1500ms into the transition)
+                setTimeout(() => {
+                    introScreen.style.display = 'none'; 
+                    welcomeText.style.opacity = 1;
+
+                    // After displaying for 1500ms, initiate fade-out of the transition elements
+                    setTimeout(() => {
+                        universe.classList.add('fade-out'); 
+                        welcomeText.classList.add('fade-out'); 
+                        
+                        // Finally, show the main portfolio content
+                        setTimeout(() => {
+                            universe.style.display = 'none';
+                            welcomeText.style.display = 'none';
+                            
+                            portfolioMainWrapper.classList.remove('hidden'); 
+                            document.body.style.overflow = 'auto';
+                            
+                            // Initialize dynamic features
+                            initializeFormHandler();
+                            initializeServiceHighlighting(); 
+                            initializeTitleRotation();
+                            initializeActiveLinkHighlighting(); 
+
+                        }, 800); 
+
+                    }, 1500); 
+                }, 1500); 
+            }
+            
+            // --- Title Rotation Logic (FASTER CYCLE, CROSS-FADE) ---
+            const jobTitles = ["FULL STACK DEVELOPER", "OPEN SOURCE CONTRIBUTOR"];
+            let currentTitleIndex = 0;
+            const rotationElement = document.getElementById('rotating-title-content');
+
+            const cycleTime = 3000; 
+            const transitionDuration = 500; 
+
+            function updateTitle() {
+                // Ensure text content is correct
+                rotationElement.textContent = jobTitles[currentTitleIndex];
+            }
+
+            function rotateTitle() {
+                // 1. Start Fade Out (via slide-out class which now applies opacity: 0 and a small translateY)
+                rotationElement.classList.remove('slide-in');
+                rotationElement.classList.add('slide-out'); 
+
+                // 2. Wait for Fade Out to complete (500ms) and change content
+                setTimeout(() => {
+                    currentTitleIndex = (currentTitleIndex + 1) % jobTitles.length;
+                    updateTitle();
+
+                    // 3. Start Fade In (via slide-in class which applies opacity: 1 and resets translateY)
+                    rotationElement.classList.remove('slide-out');
+                    rotationElement.classList.add('slide-in');
+                }, transitionDuration); 
+
+                // 4. Schedule the next rotation after the full cycle time
+                setTimeout(rotateTitle, cycleTime); 
+            }
+
+            function initializeTitleRotation() {
+                if (rotationElement) {
+                    // Set initial state and start the loop
+                    updateTitle();
+                    rotationElement.classList.add('slide-in');
+                    // Start the rotation loop after an initial pause
+                    setTimeout(rotateTitle, cycleTime);
+                }
+            }
+            // --- End Title Rotation Logic ---
+            
+            // --- Active Navigation Link Highlighting (IntersectionObserver) ---
+            function initializeActiveLinkHighlighting() {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('header nav a.nav-item');
+                
+                const observerOptions = {
+                    root: null, 
+                    rootMargin: "-150px 0px -50% 0px", 
+                    threshold: 0
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const id = entry.target.getAttribute('id');
+                        const correspondingLink = document.querySelector(`header nav a.nav-item[href="#${id}"]`);
+
+                        if (correspondingLink && entry.isIntersecting) {
+                            navLinks.forEach(link => {
+                                link.classList.remove('nav-active', 'text-accent-blue');
+                                link.classList.add('text-text-light');
+                            });
+                            
+                            correspondingLink.classList.add('nav-active', 'text-accent-blue');
+                            if (id !== 'hero') {
+                                correspondingLink.classList.remove('text-text-light');
+                                correspondingLink.classList.add('text-accent-blue');
+                            }
+                        }
+                    });
+                }, observerOptions);
+
+                sections.forEach(section => {
+                    observer.observe(section);
+                });
+                
+                const homeLink = document.querySelector('header nav a.nav-item[href="#hero"]');
+                if (homeLink) {
+                    homeLink.classList.add('nav-active', 'text-accent-blue');
+                    homeLink.classList.remove('text-text-light');
+                }
+            }
+            // --- End Active Navigation Link Highlighting ---
+
+
+            // --- Service Highlighting Logic ---
+            function initializeServiceHighlighting() {
+                const serviceCards = document.querySelectorAll('.service-card');
+
+                serviceCards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        serviceCards.forEach(c => {
+                            c.classList.remove('active-service');
+                        });
+                            card.classList.add('active-service');
+                    });
+                });
+            }
+            // --- End Service Highlighting Logic ---
+
+            // --- Formspree AJAX Submission Handler ---
+            function initializeFormHandler() {
+                const form = document.getElementById('contactForm');
+                const status = document.getElementById('message-status');
+                const submitButton = document.getElementById('submit-button');
+                const originalButtonText = '<i class="fas fa-paper-plane mr-2"></i> Send Message';
+
+                const resetSubmitButton = () => {
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                    submitButton.className = "w-full bg-accent-blue hover:bg-[#50A4C8CC] text-white px-6 py-3 text-base font-semibold rounded-lg transition duration-300 shadow-glow-blue transform hover:scale-[1.005]";
+                }
+
+                const displayStatus = (message, isSuccess) => {
+                    // Use innerHTML to support bold text
+                    status.innerHTML = message; 
+                    status.className = isSuccess 
+                        ? 'p-3 rounded-lg text-center bg-green-500/10 text-green-400 mb-4 transition duration-300' 
+                        : 'p-3 rounded-lg text-center bg-red-500/10 text-red-400 mb-4 transition duration-300';
+                    status.style.display = 'block';
+                    // Force reflow to ensure transition runs
+                    void status.offsetWidth; 
+                    status.style.opacity = 1;
+
+                    setTimeout(() => {
+                        status.style.opacity = 0;
+                        setTimeout(() => status.style.display = 'none', 300);
+                    }, 8000); // Increased timeout for reading detailed errors
+                };
+
+                form.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    
+                    const data = new FormData(form);
+                    const action = e.target.action;
+                    
+                    submitButton.textContent = 'Sending...';
+                    submitButton.classList.remove('shadow-glow-blue'); 
+                    submitButton.disabled = true;
+
+                    try {
+                        const response = await fetch(action, {
+                            method: 'POST',
+                            body: data,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            displayStatus("Thank you! Your message has been sent successfully. I'll get back to you soon.", true);
+                            form.reset();
+                        } else {
+                            // --- ENHANCED ERROR HANDLING ---
+                            let result = {};
+                            try {
+                                result = await response.json();
+                            } catch (jsonError) {
+                                // Handle cases where response body is not JSON (e.g., plain text error, like 429 rate limit)
+                                console.error('Formspree response not JSON:', response.statusText);
+                            }
+                            
+                            let errorMessage = "Oops! Submission failed. ";
+
+                            if (response.status === 400 && result.error === "unverified_email") {
+                                errorMessage = "Formspree requires **confirmation**! Please ensure the email endpoint is verified, or that you are using a unique hash ID.";
+                            } else if (response.status === 400 && result.errors && result.errors.length > 0) {
+                                // Validation errors (missing required fields)
+                                errorMessage = `Validation failed! Missing or invalid data for: **${result.errors.map(error => error.field).join(', ')}**. Please check all required fields.`;
+                            } else {
+                                // Generic error fallback
+                                errorMessage += `An unknown error occurred (Status ${response.status}). If this continues, please contact me directly at mannemsri@gmail.com.`;
+                            }
+                            
+                            displayStatus(errorMessage, false);
+                        }
+                    } catch (error) {
+                        console.error('Submission error:', error);
+                        displayStatus("A network error occurred. Please check your internet connection and try again.", false);
+                    } finally {
+                        resetSubmitButton(); 
+                    }
+                });
+            }
+            // --- End Formspree Handler ---
+
+            introScreen.addEventListener('click', enterParallelUniverse);
+        });
+    </script>
+</body>
+</html>
